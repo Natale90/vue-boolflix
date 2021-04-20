@@ -1,0 +1,88 @@
+/* --------------------------- general set of rules ------------------------- */
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+.container{
+  width: 100vw;
+  height: 100%;
+}
+
+header{
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+  background-color: 	#121212;
+}
+
+ul{
+  list-style-type: none;
+}
+
+ul li{
+  margin: 10px 0;
+}
+
+/* -------------------------------------------------------------------------- */
+#webName {
+  color: red;
+}
+
+main{
+  height: calc(100% - 60px);
+  background-color: #212121;
+}
+
+.film_card{
+  width: 100px;
+  height: auto;
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.serie_card{
+  width: 100px;
+  height: auto;
+  color: #fff;
+  border: 2px solid blue;
+}
+
+.flag{
+  width: 20px;
+  height: auto;
+  vertical-align: middle;
+}
+
+.row{
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.film_card, .serie_card{
+  width: calc(100% / 6 - 20px);
+  margin: 20px 10px;
+}
+
+.film_card:hover, .serie_card:hover{
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+.poster{
+  width: 100%;
+  height: auto;
+}
+
+.fas.fa-star.yellow{
+  color: yellow;
+}
+
+.card_content{
+  display: none;
+}
