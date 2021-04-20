@@ -39,8 +39,9 @@
 
         <div class="row">
 
-          <div v-for='film in filmCollection' class='film_card'>
-            <ul class="card_content">
+          <div  @mouseover="showDetailsFilm = index" @mouseleave="showDetailsFilm = null" v-for='(film , index) in filmCollection' class='film_card'>
+            <div v-show="showDetailsFilm === index" class="layover"></div>
+            <ul  v-show="showDetailsFilm === index"  class="card_content">
               <li>
                 {{film.title}}
               </li>
@@ -55,20 +56,25 @@
                 <i v-for="index in (5 - getVote(film.vote_average))" class="fas fa-star"></i>
               </li>
               <li class="lang">
+                language:
                 <img v-if='flags[film.original_language]' :src="flags[film.original_language]" class='flag' alt="">
                 <span v-else >Original Lang: <span>{{film.original_language}}</span></span>
               </li>
               <li>
                 Overview:<br>
-                {{film.overview}}
+                {{cutText(film.overview, 200, '...')}}
               </li>
             </ul>
-            <img :src="'https://image.tmdb.org/t/p/' + 'w342/' + film.poster_path" alt="" class="poster">
+            <img v-if="film.poster_path" :src="'https://image.tmdb.org/t/p/' + 'w342/' + film.poster_path" alt="" class="poster">
+            <img class="boolflixImg" v-else src="img/boolflix.jpg" alt="">
+
           </div>
 
-          <div v-for='serie in serieCollection' class='serie_card'>
+          <!-- .............................................................................  -->
 
-            <ul class="card_content">
+          <div @mouseover="showDetailsSerie = i" @mouseleave="showDetailsSerie = null" v-for='(serie, i) in serieCollection' class='serie_card'>
+              <div v-show="showDetailsSerie === i" class="layover"></div>
+            <ul v-show="showDetailsSerie === i" class="card_content">
               <li>
                 {{serie.title}}
               </li>
@@ -87,10 +93,11 @@
               </li>
               <li>
                 Overview:<br>
-                {{serie.overview}}
+                {{cutText(serie.overview, 200, '...')}}
               </li>
             </ul>
-            <img :src="'https://image.tmdb.org/t/p/' + 'w342/' + serie.poster_path" alt="" class="poster">
+            <img v-if="serie.poster_path" :src="'https://image.tmdb.org/t/p/' + 'w342/' + serie.poster_path" alt="" class="poster">
+            <img class="boolflixImg" v-else src="img/boolflix.jpg" alt="">
           </div>
 
         </div>

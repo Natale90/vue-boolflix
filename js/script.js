@@ -19,7 +19,8 @@ function initVue(){
 
       'ricerca': '',
       // css classes
-
+      'showDetailsFilm':null,
+      'showDetailsSerie':null,
     },
 
 
@@ -68,8 +69,14 @@ function initVue(){
         return Math.round(localVote / 2);
       },
 
+      cutText: function (text, length, suffix) {
 
-
+        if (text.length > length) {
+          return text.substring(0, length) + suffix;
+        } else {
+          return text;
+        }
+      },
 
     },
 
