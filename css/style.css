@@ -5,6 +5,7 @@
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
 }
+
 .container{
   width: 100vw;
   height: 100%;
@@ -35,7 +36,9 @@ ul li{
 main{
   min-height: calc(100vh - 60px);
   background-color: #212121;
+  position: relative;
 }
+
 
 .film_card{
   width: 100px;
@@ -64,14 +67,17 @@ main{
 
 }
 
+/* ---------card css section----- */
 .film_card, .serie_card{
   width: calc(100% / 6 - 20px);
   margin: 20px 10px;
   position: relative;
+
 }
 
+
 .layover{
-  /* display:none; */
+  display:none;
   position: absolute;
   top: 0;
   bottom:0;
@@ -83,6 +89,22 @@ main{
 .film_card:hover, .serie_card:hover{
   transform: scale(1.1);
   transition: 1s;
+
+}
+
+.film_card:hover .card_content,
+.serie_card:hover .card_content{
+  display:block;
+}
+
+.film_card:hover .layover,
+.serie_card:hover .layover{
+  display: block;
+}
+
+.title{
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .poster{
@@ -96,11 +118,15 @@ main{
 
 .card_content{
   position: absolute;
+  display: none;
 }
-/*
-.card_content_display{
-  display:block;
-} */
+.actorsButton{
+  border: none; 
+}
+
+.actorName{
+  font-size: 0.8rem;
+}
 
 .boolflixImg{
   width: 100%;

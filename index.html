@@ -30,51 +30,60 @@
       <header>
         <h1 id="webName">Boolflix</h1>
         <nav>
-          <input v-model='ricerca' type="text" name="" value="">
-          <button @click='searchInMovies()' type="button" name="button">Cerca</button>
+          <input v-on:keyup.enter="search()" v-model='ricerca' type="text" name="" value="">
+          <button @click='search()' @click="hideWelcomePage()" type="button" name="button">Cerca</button>
         </nav>
       </header>
 
       <main>
 
         <div class="row">
-
-          <div  @mouseover="showDetailsFilm = index" @mouseleave="showDetailsFilm = null" v-for='(film , index) in filmCollection' class='film_card'>
-            <div v-show="showDetailsFilm === index" class="layover"></div>
-            <ul  v-show="showDetailsFilm === index"  class="card_content">
-              <li>
+          <!--....................... film section ..............................-->
+          <div v-for='(film , index) in filmCollection' v-on:mouseleave='whenMouseOut' class='film_card'>
+            <div class="layover"></div>
+            <ul class="card_content">
+              <li class="title">
                 {{film.title}}
               </li>
               <li>
-                Original Title:
-                <span>{{film.original_title}}</span>
+                <span>
+                  {{compare(film.title, film.original_title)}}'
+                </span>
               </li>
               <li>
                 Vote:
                 <span>{{getVote(film.vote_average)}}</span>
-                <i v-for="index in getVote(film.vote_average)" :key="index" class="fas fa-star yellow"></i>
-                <i v-for="index in (5 - getVote(film.vote_average))" class="fas fa-star"></i>
+                <i v-for="index in getVote(film.vote_average)" :key="index" class="fas fa-star"></i>
+                <i v-for="index in (5 - getVote(film.vote_average))" class="far fa-star"></i>
               </li>
               <li class="lang">
                 language:
                 <img v-if='flags[film.original_language]' :src="flags[film.original_language]" class='flag' alt="">
-                <span v-else >Original Lang: <span>{{film.original_language}}</span></span>
+                <span v-else ><span>{{film.original_language}}</span></span>
               </li>
               <li>
                 Overview:<br>
-                {{cutText(film.overview, 200, '...')}}
+                {{cutText(film.overview, 60, '...')}}
               </li>
+
+              <div class="cast">
+                <button @click="getCastMovie(film)" type="button" name="button" class="actorsButton">Actors</button>
+                <div v-show="showCast" v-if="film.cast">
+                  <span class="actorName" v-for="actor in film.cast">{{actor.name}}-</span><br>
+                </div>
+              </div>
             </ul>
+
             <img v-if="film.poster_path" :src="'https://image.tmdb.org/t/p/' + 'w342/' + film.poster_path" alt="" class="poster">
-            <img class="boolflixImg" v-else src="img/boolflix.jpg" alt="">
+            <img v-else src="img/boolflix.jpg" class="boolflixImg" alt="">
 
           </div>
 
-          <!-- .............................................................................  -->
+          <!-- .....................................serie section........................................  -->
 
-          <div @mouseover="showDetailsSerie = i" @mouseleave="showDetailsSerie = null" v-for='(serie, i) in serieCollection' class='serie_card'>
-              <div v-show="showDetailsSerie === i" class="layover"></div>
-            <ul v-show="showDetailsSerie === i" class="card_content">
+          <div v-for='(serie, i) in serieCollection' class='serie_card' v-on:mouseleave='whenMouseOut'>
+            <div class="layover"></div>
+            <ul class="card_content">
               <li>
                 {{serie.title}}
               </li>
@@ -85,19 +94,29 @@
               <li>
                 Vote:
                 <span>{{getVote(serie.vote_average)}}</span>
-                <i v-for="index in getVote(serie.vote_average)" :key="index" class="fas fa-star yellow"></i>
-                <i v-for="index in (5 - getVote(serie.vote_average))" class="fas fa-star"></i>
+                <i v-for="index in getVote(serie.vote_average)" :key="index" class="fas fa-star"></i>
+                <i v-for="index in (5 - getVote(serie.vote_average))" class="far fa-star"></i>
               </li>
-              <li class="lang">Original Lang: {{serie.original_language}}
-                <img :src="flags[serie.original_language]" class='flag' alt="">
+              <li class="lang">
+                Original Lang:
+                <img v-if="flags[serie.original_language]" :src="flags[serie.original_language]" class='flag' alt="">
+                <span v-else>{{serie.original_language}}</span>
               </li>
               <li>
                 Overview:<br>
                 {{cutText(serie.overview, 200, '...')}}
               </li>
+
+              <div class="cast">
+                <button @click="getCastSerie(serie)" type="button" name="button" class="actorsButton">Actors</button>
+                <div  v-if="serie.cast">
+                  <span v-show="showCast" class="actorName" v-for="actor in serie.cast">{{actor.name}}-</span><br>
+                </div>
+              </div>
+
             </ul>
             <img v-if="serie.poster_path" :src="'https://image.tmdb.org/t/p/' + 'w342/' + serie.poster_path" alt="" class="poster">
-            <img class="boolflixImg" v-else src="img/boolflix.jpg" alt="">
+            <img  v-else src="img/boolflix.jpg" class="boolflixImg" alt="">
           </div>
 
         </div>
