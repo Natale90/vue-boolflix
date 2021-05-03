@@ -67,9 +67,12 @@
               </li>
 
               <div class="cast">
-                <button @click="getCastMovie(film)" type="button" name="button" class="actorsButton">Actors</button>
-                <div v-show="showCast" v-if="film.cast">
-                  <span class="actorName" v-for="actor in film.cast">{{actor.name}}-</span><br>
+                <button @click="getCastMovie(film)" type="button" name="button" class="actorsButton">Cast Info</button>
+                <div v-show="showCast">
+                  <span v-if="film.cast" class="actorName" v-for="actor in film.cast">{{actor.name}}-</span><br>
+                </div>
+                <div v-else class="">
+                  No cast info
                 </div>
               </div>
             </ul>
@@ -108,9 +111,12 @@
               </li>
 
               <div class="cast">
-                <button @click="getCastSerie(serie)" type="button" name="button" class="actorsButton">Actors</button>
-                <div  v-if="serie.cast">
-                  <span v-show="showCast" class="actorName" v-for="actor in serie.cast">{{actor.name}}-</span><br>
+                <div>
+                  <button @click="getCastSerie(serie)" type="button" name="button" class="actorsButton">Cast Info</button>
+                  <span   v-if="serie.cast"  v-show="showCast" class="actorName" v-for="actor in serie.cast">{{actor.name}}-</span><br>
+                </div>
+                <div v-else class="">
+                  No cast info
                 </div>
               </div>
 

@@ -35,9 +35,10 @@ function initVue(){
         })
 
         .then(data => {
+
           this.filmCollection = data.data.results;
           this.ricerca = '';
-          console.log(this.filmCollection, 'films');
+
         })
 
         .catch(() => console.log('error'))
@@ -52,9 +53,10 @@ function initVue(){
         })
 
         .then(data => {
+
           this.serieCollection = data.data.results;
           this.ricerca = '';
-          console.log(this.serieCollection,'serie tv');
+
         })
 
         .catch(() => console.log('error'))
@@ -65,6 +67,7 @@ function initVue(){
 
       // ----------------------------cast for Movies------------------------
       getCastMovie: function(film){
+
         this.showCast = !this.showCast
         const url = 'https://api.themoviedb.org/3/movie/'+ film.id + '/credits';
         axios.get(url, {
@@ -79,18 +82,28 @@ function initVue(){
           for(let i=0; i<5;i++){
 
             let actor = data.data.cast[i];
-            castArr.push(actor)
+            if(actor != undefined){
+
+              castArr.push(actor)
+            }
           };
+
+
           //    oggetto  proprietà  valore assegnato alla proprietà
           Vue.set(film, 'cast', castArr);
-          // film.cast = data.data.cast;
 
-          console.log(data.data.cast,'castFilm');
+
+
 
         })
 
         .catch(() => console.log('error'))
+
+
       },
+
+
+
 
       // ----------------------------cast for Serie------------------------
       getCastSerie: function(serie){
@@ -104,22 +117,26 @@ function initVue(){
         })
 
         .then(data => {
+          
           const castArr = [];
           for(let i=0; i<5;i++){
 
             let actor = data.data.cast[i];
-            castArr.push(actor)
+            if(actor != undefined){
+
+              castArr.push(actor)
+            }
           };
           //    oggetto  proprietà  valore assegnato alla proprietà
           Vue.set(serie, 'cast', castArr);
-          // film.cast = data.data.cast;
 
-          console.log(data, data.data.cast,'castSerie');
 
         })
 
         .catch(() => console.log('error'))
       },
+
+
 
       whenMouseOut: function (){
 
